@@ -3,17 +3,17 @@
 <div class="container d-flex justify-content-center align-items-center min-vh-100 mx-auto">
     <div class="d-flex flex-column w-50 p-5 rounded-3 shadow-sm">
         <h2>Login</h2>
-        <!-- <form action="" method="post"> -->
-        <div class="mb-3">
-            <label class="label" for="">Username</label>
-            <input class="form-control" type="text" name="username" id="username">
-        </div>
-        <div class="mb-3">
-            <label class="label" for="">Password</label>
-            <input type="password" class="form-control" name="password" id="password">
-        </div>
-        <input class="btn btn-success w-100" type="submit" id="btn-login" value="LOGIN">
-        <!-- </form> -->
+        <form action="" method="post">
+            <div class="mb-3">
+                <label class="label" for="">Username</label>
+                <input class="form-control" type="text" name="username" id="username">
+            </div>
+            <div class="mb-3">
+                <label class="label" for="">Password</label>
+                <input type="password" class="form-control" name="password" id="password">
+            </div>
+            <input class="btn btn-success w-100" type="submit" id="btn-login" value="LOGIN">
+        </form>
     </div>
 </div>
 <script>

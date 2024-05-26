@@ -66,7 +66,7 @@ if (isset($_GET['selected_cu_id'])) {
                 </select>
             </div>
         </form>
-        <input type="submit" onclick="startExam()" class="btn btn-primary w-100" value="เริ่มการสอบ">
+        <input type="submit" class="btn btn-primary w-100" id="btn-start-exam" value="เริ่มการสอบ">
     </div>
 </main>
 <script>
@@ -86,44 +86,37 @@ if (isset($_GET['selected_cu_id'])) {
         if ($('#selected_c_code').val() != '' && $('#selected_cu_id').val() != '') {
             $('#btn-add-question').removeAttr('disabled')
         }
-    })
 
-    const startExam = () => {
-        var userID = '<?= $_SESSION['user_id'] ?>'
-        var courseUnitID = $('#selected_cu_id').val()
+        $('#btn-start-exam').click(function() {
+            startExam()
+        })
 
-        var dataToSend = {
-            userID: userID,
-            courseUnitID: courseUnitID,
-        };
-        $.ajax({
-            url: "controllers/exam_start/exam_start_insert.php",
-            type: "POST",
-            data: dataToSend,
-            success: function(response) {
-                console.log(response)
-                if (response) {
+        const startExam = () => {
+            var userID = '<?= $_SESSION['user_id'] ?>'
+            var courseUnitID = $('#selected_cu_id').val()
+
+            $.ajax({
+                url: "controllers/exam_start/exam_start_insert.php",
+                type: "POST",
+                data: JSON.stringify({
+                    userID: userID,
+                    courseUnitID: courseUnitID,
+                }),
+                success: function(response) {
                     Swal.fire({
-                        title: 'สำเร็จ',
-                        text: response,
+                        title: 'เริ่มการทดสอบ',
+                        html: response + "<br>*ดูรายละเอียดเพิ่มเติมที่ <a href='exam_list.php'>เมนูรายการสอบ</a>",
                         icon: 'success',
                         confirmButtonText: 'ตกลง'
                     })
-                } else if (response == 'false') {
-                    Swal.fire({
-                        title: 'ไม่สำเร็จ',
-                        text: 'ไม่สำเร็จ',
-                        icon: 'error',
-                        confirmButtonText: 'ตกลง'
-                    })
+                },
+                error: function(xhr, status, error) {
+                    console.log("Error:", error)
                 }
-            },
-            error: function(xhr, status, error) {
-                console.log("Error:", error)
-            }
-        });
+            });
 
-    }
+        }
+    })
 </script>
 
 <?php require 'includes/admin_footer.php'; ?>

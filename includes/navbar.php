@@ -7,7 +7,7 @@ $row_user_detail = mysqli_fetch_array($q_user_detail);
 ?>
 <nav class="navbar navbar-expand-lg bg-white shadow-sm pt-3 pb-3">
     <div class="container d-flex justify-content-between">
-        <div class="h1 fw-bolder flex-grow-1"><a class="text-decoration-none text-dark" href="index.php">ระบบการสอบ</a></div>
+        <div class="h1 fw-bolder flex-grow-1"><a class="text-decoration-none text-dark" href="index.php">ระบบสอบ</a></div>
         <div class="d-flex align-items-center justify-centent-center me-3">
             <div class="rounded-circle me-3" style="overflow: hidden; width: 5rem; height: 5rem;">
                 <img class="img-fluid" src="<?= $row_user_detail['img'] ?>" alt="" width="100%" height="100%">

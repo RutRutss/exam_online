@@ -29,6 +29,9 @@
                     <li class="nav-item">
                         <a class="nav-link <?= (basename($_SERVER['PHP_SELF']) == 'exam_start.php') ? 'active' : '' ?>" href="exam_start.php"><i class="fa-solid fa-hourglass-start me-2"></i>เริ่มการสอบ</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?= (basename($_SERVER['PHP_SELF']) == 'exam_list.php') ? 'active' : '' ?>" href="exam_list.php"><i class="fa-solid fa-stopwatch me-2"></i>รายการสอบ</a>
+                    </li>
                 </ul>
             </div>
         </div>

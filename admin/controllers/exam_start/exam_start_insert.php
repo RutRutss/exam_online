@@ -1,7 +1,7 @@
 <?php
 require '../../../controllers/conn.php';
+date_default_timezone_set('Asia/Bangkok');
 
-// รับข้อมูล JSON ที่ถูกส่งมา
 $data = json_decode(file_get_contents('php://input'), true);
 
 if ($data) {
@@ -9,26 +9,35 @@ if ($data) {
     $courseUnitID = isset($data['courseUnitID']) ? $data['courseUnitID'] : null;
     $exam_code = generateRandomString();
 
-    echo $userID;
+    $exam_start = new DateTime();
+    $exam_start_formatted = $exam_start->format('Y-m-d H:i:s');
+
+    $exam_start->add(new DateInterval('PT1H'));
+    $exam_end = $exam_start->format('Y-m-d H:i:s');
+
+
+    $insert_new_exam = "INSERT INTO `exam_logs`(`user_create`, `course_unit_id`, `exam_code`, `exam_start`, `exam_end`) 
+                        VALUES ('$userID','$courseUnitID','$exam_code','$exam_start_formatted','$exam_end')";
+    $q_insert_exam = mysqli_query($conn, $insert_new_exam);
+
+    if ($q_insert_exam) {
+        echo "รหัสเข้าสอบ : <strong>" . $exam_code . "</strong><br>เริ่ม " . $exam_start_formatted . "<br>สิ้นสุด " . $exam_end;
+    } else {
+        echo "create fail";
+    }
 } else {
-    $response = [
-        "status" => "error",
-        "message" => "Invalid data"
-    ];
+    echo 'fail';
 }
 
 
 
 function generateRandomString()
 {
-    // ตัวเลขและตัวอักษรที่สามารถใช้ได้
     $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
     $randomString = '';
 
-    // สุ่มตัวอักษรและตัวเลขตามความยาวที่กำหนด
     for ($i = 0; $i < 6; $i++) {
         $randomString .= $characters[rand(0, strlen($characters) - 1)];
     }
-
     return $randomString;
 }
